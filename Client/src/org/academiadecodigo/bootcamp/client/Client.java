@@ -8,10 +8,12 @@ public class Client {
         private BufferedWriter out;
         private BufferedReader in;
         private BufferedReader inputMsg;
+        private Game game;
 
 
         Client() {
             try {
+                game = new Game(this);
                 inputMsg = new BufferedReader(new InputStreamReader(System.in));
                 activeSocket = new Socket(host(), port());
                 out = new BufferedWriter(new OutputStreamWriter(activeSocket.getOutputStream()));
@@ -81,9 +83,7 @@ public class Client {
             try {
                 char[] sentBuffer;
                 String inputMessage = inputMsg.readLine();
-
                 sentBuffer = inputMessage.toCharArray();
-
                 out.write(sentBuffer, 0, sentBuffer.length);
                 out.flush();
             } catch (IOException e) {
@@ -91,14 +91,26 @@ public class Client {
             }
         }
 
+    void send(String gameMessage) {
+        try {
+            char[] sentBuffer;
+            String inputMessage = gameMessage;
+            sentBuffer = inputMessage.toCharArray();
+            out.write(sentBuffer, 0, sentBuffer.length);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
         private void receive() {
             try {
                 char[] receiveBuffer = new char[1028];
                 int readCount = 0;
                 readCount = in.read(receiveBuffer);
                 String receiveBufferStr = String.valueOf(receiveBuffer, 0, readCount);
-                if(receiveBufferStr.substring(0, 1).equals("\\")) {
-                    //game logic
+                if(receiveBufferStr.substring(0, 2).equals("\\\\")) {
+                    game.show(receiveBufferStr.substring(2));
                 } else {
                     System.out.println(receiveBufferStr);
                 }
