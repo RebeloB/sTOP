@@ -12,7 +12,7 @@ import java.util.List;
 public class ReaderListFruits implements Iterable<String> {
 
     private List<String> listFruits = new LinkedList<>();
-    private File frutas = new File("/Users/codecadet/Desktop/StopGame/sTOP/Server/files/Frutas.txt");
+    private File frutas = new File("resources/Frutas.txt");
 
     public void readFileFruits() throws IOException {
 
@@ -25,7 +25,7 @@ public class ReaderListFruits implements Iterable<String> {
 
         while((line = bReader.readLine()) != null){
 
-            result += line.toLowerCase() + "\n";
+            result += line.toLowerCase() + " ";
         }
 
         bReader.close();
@@ -36,10 +36,10 @@ public class ReaderListFruits implements Iterable<String> {
     }
 
     public boolean isValid(String word){
-        if(!listFruits.contains(word)){
-            return false;
+        if(listFruits.contains(word)){
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

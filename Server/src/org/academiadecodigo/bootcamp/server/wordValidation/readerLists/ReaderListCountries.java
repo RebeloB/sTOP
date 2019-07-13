@@ -13,7 +13,7 @@ public class ReaderListCountries implements Iterable<String> {
 
     private List<String> listCountries = new LinkedList<>();
 
-    private File paises = new File("/Users/codecadet/Desktop/StopGame/sTOP/Server/files/Paises.txt");
+    private File paises = new File("resources/Paises.txt");
 
     public void readFileCountries() throws IOException {
 
@@ -26,7 +26,7 @@ public class ReaderListCountries implements Iterable<String> {
 
         while((line = bReader.readLine()) != null){
 
-            result += line.toLowerCase() + "\n";
+            result += line.toLowerCase() + " ";
         }
 
         bReader.close();
@@ -37,10 +37,10 @@ public class ReaderListCountries implements Iterable<String> {
     }
 
     public boolean isValid(String word){
-        if(!listCountries.contains(word)){
-            return false;
+        if(listCountries.contains(word)){
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

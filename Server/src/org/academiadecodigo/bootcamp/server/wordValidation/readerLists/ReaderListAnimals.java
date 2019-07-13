@@ -13,7 +13,7 @@ public class ReaderListAnimals implements Iterable<String>{
 
     private List<String> listAnimals = new LinkedList<>();
 
-    private File animais = new File("/Users/codecadet/Desktop/StopGame/sTOP/Server/files/Animais.txt");
+    private File animais = new File("resources/Animais.txt");
 
     public void readFileAnimals() throws IOException {
 
@@ -26,7 +26,7 @@ public class ReaderListAnimals implements Iterable<String>{
 
         while((line = bReader.readLine()) != null){
 
-            result += line.toLowerCase() + "\n";
+            result += line.toLowerCase() + " ";
         }
 
         bReader.close();
@@ -37,10 +37,10 @@ public class ReaderListAnimals implements Iterable<String>{
     }
 
     public boolean isValid(String word){
-        if(!listAnimals.contains(word)){
-            return false;
+        if(listAnimals.contains(word)){
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

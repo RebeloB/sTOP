@@ -1,14 +1,23 @@
 package org.academiadecodigo.bootcamp.server.Scoring;
 
+import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListAnimals;
+import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListBrands;
+import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListCountries;
+import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListFruits;
+
+import java.io.IOException;
+
 public class CompareAnswers {
 
     //Animais/Fruta/Marcas/Países
-
-    //private HashSet<String> words = new HashSet<>();
     private HashMapRevamp words = new HashMapRevamp();
+    private ReaderListAnimals animals;
+    private ReaderListFruits fruits;
+    private ReaderListBrands brands;
+    private ReaderListCountries countries;
 
 
-    private String player1 = "1,Panda,Banana,bigode,Portugal".toLowerCase();
+    private String player1 = "1,Cão,Banana,bigode,Portugal".toLowerCase();
     private String player2 = "2,macaco,kiwi,peugeot,espanha".toLowerCase();
     private String player3 = "3,MaCaCo,KiWi,PeUgEoT, ".toLowerCase();
     private String player4 = "4, , , , ".toLowerCase();
@@ -17,15 +26,52 @@ public class CompareAnswers {
     private String[][] ah;
 
 
-    public void send(){
+    public CompareAnswers(){
+        animals = new ReaderListAnimals();
+        fruits = new ReaderListFruits();
+        brands = new ReaderListBrands();
+        countries = new ReaderListCountries();
 
-        if (false){
-            System.out.println("This player word = emptyString ");
+    }
+
+
+    private void validate() {
+        for (int i = 1; i < 5; i++) {
+
+            for (int j = 0; j < 4; j++) {  //TODO: change magic number 4 to player number
+                switch (i) {
+                    case 1:
+                        if (animals.isValid(ah[j][i])) {
+                        break;
+                        }
+                            ah[j][i] = " ";
+                        break;
+                    case 2:
+                        if (fruits.isValid(ah[j][i])) {
+                        break;
+                        }
+                            ah[j][i] = " ";
+                        break;
+
+                    case 3:
+                        if (brands.isValid(ah[j][i])) {
+                        break;
+                        }
+                            ah[j][i] = " ";
+                        break;
+                    case 4:
+                        if (countries.isValid(ah[j][i])) {
+                        break;
+                        }
+                            ah[j][i] = " ";
+                }
+            }
         }
     }
 
 
     public void compare() {
+
 
         //[numberOfPlayers][numberOfCategories+1]
         ah = new String[4][5];// TODO: change magic number 5 and 4
@@ -33,6 +79,7 @@ public class CompareAnswers {
         for (int i = 0; i < playersAnswers.length; i++) {
             ah[i] = playersAnswers[i].split(",");
         }
+        validate();
 
 
         // numbOfCat+1
@@ -62,40 +109,49 @@ public class CompareAnswers {
         }
     }
 
-        private void attributePoints(int category){
+    private void attributePoints(int category) {
 
-            for (String word : words) {
-                if (!(word.equals(" "))) {
-                    for (int j = 0; j < 4; j++) { //TODO: change magic number 4
+        for (String word : words) {
+            if (!(word.equals(" "))) {
+                for (int j = 0; j < 4; j++) { //TODO: change magic number 4
 
-                        if (words.get(word) == 1) {
-                            if (ah[j][category].equals(word)) {
-                                ah[j][category] = "10";
-                            }
-                        } else {
-                            if (ah[j][category].equals(word)) {
-                                ah[j][category] = "5";
-                            }
+                    if (words.get(word) == 1) {
+                        if (ah[j][category].equals(word)) {
+                            ah[j][category] = "10";
+                        }
+                    } else {
+                        if (ah[j][category].equals(word)) {
+                            ah[j][category] = "5";
                         }
                     }
-                }else {
-                    for (int i = 0; i < 4; i++) {   //TODO: change magic number 4
-                        if (ah[i][category].equals(" ")){
-                            ah[i][category] = "0";
-                        }
+                }
+            } else {
+                for (int i = 0; i < 4; i++) {   //TODO: change magic number 4
+                    if (ah[i][category].equals(" ")) {
+                        ah[i][category] = "0";
                     }
                 }
             }
         }
+    }
 
-
-
-
-    public static void main(String[] args) {
-        CompareAnswers comp = new CompareAnswers();
-        comp.compare();
-
+    public void initLists(){
+        try {
+            animals.readFileAnimals();
+            fruits.readFileFruits();
+            brands.readFileBrands();
+            countries.readFileCountries();
+        }catch (IOException io){
+            System.out.println(io.getMessage());
+        }
     }
 
 
+    public static void main(String[] args) {
+            CompareAnswers comp = new CompareAnswers();
+            comp.initLists();
+            comp.compare();
+
+
+    }
 }
