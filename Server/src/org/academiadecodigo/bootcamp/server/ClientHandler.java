@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.chat;
+package org.academiadecodigo.bootcamp.server;
 
 import java.io.*;
 import java.net.Socket;

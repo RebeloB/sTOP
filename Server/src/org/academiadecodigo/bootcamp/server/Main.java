@@ -1,6 +1,6 @@
-package org.academiadecodigo.bootcamp.chat;
+package org.academiadecodigo.bootcamp.server;
 
-public class ServerMain {
+public class Main {
 
     public static void main(String[] args) {
         Server server = new Server();

@@ -1,6 +1,8 @@
-package org.academiadecodigo.bootcamp.chat;
+package org.academiadecodigo.bootcamp.server;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collections;
@@ -8,10 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collector;
 
-
-class Server {
+public class Server {
     private ServerSocket serverSocket;
     private Socket activeSocket;
     private BufferedReader inputMsg;
@@ -22,7 +22,7 @@ class Server {
 
     void init() {
         Collections.synchronizedList(new LinkedList<ClientHandler>());
-        this.clientHandler = /*new LinkedList<ClientHandler>()*/Collections.synchronizedList(new LinkedList<>());
+        this.clientHandler = Collections.synchronizedList(new LinkedList<>());
         this.inputMsg = new BufferedReader(new InputStreamReader(System.in));
         try {
             this.serverSocket = new ServerSocket(port());
@@ -39,13 +39,12 @@ class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            pool.submit(new Runnable() {   //ClientHandler implements runnable
+            pool.submit(new Runnable() {
                 @Override
                 public void run() {
                     ClientHandler newClientHandler = new ClientHandler(activeSocket, Server.this);
                     clientHandler.add(newClientHandler);    //
                     newClientHandler.start(Server.connections++);
-                    //(clientHandler..listIterato.getLast()).start(connections++);
                 }
             });
         }
@@ -98,3 +97,4 @@ class Server {
     }
 
 }
+
