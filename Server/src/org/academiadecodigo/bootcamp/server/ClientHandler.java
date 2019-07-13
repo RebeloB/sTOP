@@ -11,7 +11,7 @@ public class ClientHandler {
     private String nick;
 
 
-    public ClientHandler(Socket activeSocket, Server server) {              //nested class in server
+    public ClientHandler(Socket activeSocket, Server server) {
         this.activeSocket = activeSocket;
         this.server = server;
         this.nick = "user";
@@ -34,9 +34,10 @@ public class ClientHandler {
             if(message == null){
                 close();
             }
-            if(message.substring(0, 1).equals("\\")) {
+            if(message.substring(0, 2).equals("\\\\")) {
                 command(message, this);
-            } else {
+            } else if(message.substring(0, 1).equals("\\")) {
+                command(message, this);
                 server.send(message, this);
             }
         }

@@ -16,7 +16,7 @@ public class Server {
     private Socket activeSocket;
     private BufferedReader inputMsg;
     private ExecutorService pool;
-    private List<ClientHandler>/*LinkedList*/ clientHandler;
+    private List<ClientHandler> clientHandler;
     private static int connections = 1;
 
 
