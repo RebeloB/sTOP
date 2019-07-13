@@ -1,5 +1,8 @@
 package org.academiadecodigo.bootcamp.client;
 
+import org.academiadecodigo.bootcamp.Prompt;
+import org.academiadecodigo.bootcamp.client.promptmenu.PromptMenu;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -10,15 +13,18 @@ public class Client {
         private BufferedReader inputMsg;
         private Game game;
 
+        private PromptMenu promptMenu;
 
-        Client() {
+
+        public Client() {
             try {
-                game = new Game(this);
+               // game = new Game(this);
                 inputMsg = new BufferedReader(new InputStreamReader(System.in));
                 activeSocket = new Socket(host(), port());
                 out = new BufferedWriter(new OutputStreamWriter(activeSocket.getOutputStream()));
                 in = new BufferedReader(new InputStreamReader(activeSocket.getInputStream()));
-                nick();
+
+                promptMenu = new PromptMenu(activeSocket);
             } catch (IOException ioEx) {
                 System.out.println(ioEx.getMessage());
             }
@@ -31,8 +37,8 @@ public class Client {
                 String host = null;
 
                 host = inputMsg.readLine();
-
                 return host;
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -51,18 +57,9 @@ public class Client {
             return Integer.parseInt(null);
         }
 
-        private void nick(){
-            try {
-                char[] sentBuffer;
-                System.out.println("\nEnter Nickname: ");
-                sentBuffer = ("\\nick " + inputMsg.readLine()).toCharArray();
-
-                out.write(sentBuffer, 0, sentBuffer.length);
-                out.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        /* private void nick(){
+                promptMenu.getNickname();
+        } */
 
         void init(){
             System.out.println("Connection established.");
@@ -70,7 +67,8 @@ public class Client {
                 @Override
                 public void run() {
                     while (!activeSocket.isClosed()){
-                        receive();
+                      //  receive();
+                        promptMenu.getNickname();  /**  Debbugin reasons */
                     }
                 }
             }).start();
@@ -104,19 +102,7 @@ public class Client {
     }
 
         private void receive() {
-            try {
-                char[] receiveBuffer = new char[1028];
-                int readCount = 0;
-                readCount = in.read(receiveBuffer);
-                String receiveBufferStr = String.valueOf(receiveBuffer, 0, readCount);
-                if(receiveBufferStr.substring(0, 2).equals("\\\\")) {
-                    game.receive(receiveBufferStr.substring(2));
-                } else {
-                    System.out.println(receiveBufferStr);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            promptMenu.getNickname();
         }
 
     }
