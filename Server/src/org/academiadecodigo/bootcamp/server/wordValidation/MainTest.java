@@ -8,7 +8,7 @@ import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderLis
 import java.io.IOException;
 
 public class MainTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Player player1 = new Player(1, "manu");
         Player player2 = new Player(2,"david");
 
@@ -106,27 +106,25 @@ public class MainTest {
         reader.readLinesAnimals();
 */
 
+
+
 /**
  * Animal List: with List view
  * */
-    ReaderListAnimals listAnimals = new ReaderListAnimals();
 
-        try {
-            //Animals List:
-            listAnimals.readFileAnimals();
-            System.out.println("\nLista Animais: ");
+        ReaderListAnimals listAnimals = new ReaderListAnimals();
 
-            //Printing Animal List
-            for (String s: listAnimals) {
-                System.out.println(s);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        listAnimals.readFileAnimals();
+
+        listAnimals.printWords();
+
+        System.out.println(listAnimals.isValid("cao"));
 
 /**
  * Fruit List: with List view
  */
+/*
 
     ReaderListFruits listFruits = new ReaderListFruits();
 
@@ -140,11 +138,11 @@ public class MainTest {
     } catch (IOException e) {
         e.printStackTrace();
     }
-
+*/
 /**
  * BrandsMotor List: with List view
  */
-
+/*
         ReaderListBrands listBrands = new ReaderListBrands();
 
         try {
@@ -157,12 +155,12 @@ public class MainTest {
         } catch (IOException e){
             e.printStackTrace();
         }
-
+*/
 
         /**
          * Countries List : with List view
          */
-
+/*
         ReaderListCountries listCountries = new ReaderListCountries();
 
         try {
@@ -176,4 +174,7 @@ public class MainTest {
             c.printStackTrace();
         }
     }
+  */
+
+}
 }

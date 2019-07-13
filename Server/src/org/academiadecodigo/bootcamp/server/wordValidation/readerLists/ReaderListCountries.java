@@ -12,8 +12,10 @@ import java.util.List;
 public class ReaderListCountries implements Iterable<String> {
 
     private List<String> listCountries = new LinkedList<>();
+    String[] words;
+    private boolean valid;
 
-    private File paises = new File("/Users/codecadet/Desktop/StopGame/sTOP/Server/files/Paises.txt");
+    private File paises = new File("/Users/codecadet/Desktop/sTOP/Server/resources/Paises.txt");
 
     public void readFileCountries() throws IOException {
 
@@ -21,26 +23,28 @@ public class ReaderListCountries implements Iterable<String> {
         BufferedReader bReader = new BufferedReader(fileReader);
 
         String line = "";
-        String[] word;
         String result = "";
 
         while((line = bReader.readLine()) != null){
 
-            result += line.toLowerCase() + "\n";
+            result += line.toLowerCase() + " ";
         }
 
         bReader.close();
 
-        //word = result.split(" ");
+        words = result.split(" ");
 
         Collections.addAll(listCountries, result);
     }
 
     public boolean isValid(String word){
-        if(!listCountries.contains(word)){
-            return false;
-        }
-        return true;
+        for (int i = 0; i < this.words.length; i++) {
+            if (this.words[i].equals(word)) {
+                return valid = true;
+            } else{
+                valid = false;
+            }
+        } return valid;
     }
 
     @Override
