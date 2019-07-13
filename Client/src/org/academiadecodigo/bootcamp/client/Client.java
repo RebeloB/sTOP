@@ -110,7 +110,7 @@ public class Client {
                 readCount = in.read(receiveBuffer);
                 String receiveBufferStr = String.valueOf(receiveBuffer, 0, readCount);
                 if(receiveBufferStr.substring(0, 2).equals("\\\\")) {
-                    game.show(receiveBufferStr.substring(2));
+                    game.receive(receiveBufferStr.substring(2));
                 } else {
                     System.out.println(receiveBufferStr);
                 }
