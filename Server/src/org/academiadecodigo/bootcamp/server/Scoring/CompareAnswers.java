@@ -42,9 +42,9 @@ public class CompareAnswers {
                 switch (i) {
                     case 1:
                         if (animals.isValid(ah[j][i])) {
-                        break;
+                            break;
                         }
-                            ah[j][i] = " ";
+                        ah[j][i] = " ";
                         break;
                     case 2:
                         if (fruits.isValid(ah[j][i])) {

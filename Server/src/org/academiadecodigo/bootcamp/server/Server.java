@@ -24,6 +24,7 @@ public class Server {
         Collections.synchronizedList(new LinkedList<ClientHandler>());
         this.clientHandler = Collections.synchronizedList(new LinkedList<>());
         this.inputMsg = new BufferedReader(new InputStreamReader(System.in));
+
         try {
             this.serverSocket = new ServerSocket(port());
         } catch (IOException e) {
@@ -36,6 +37,7 @@ public class Server {
         while (serverSocket.isBound()) {
             try {
                 this.activeSocket = serverSocket.accept();
+                System.out.println("Client connected " + activeSocket.getInetAddress());
             } catch (IOException e) {
                 e.printStackTrace();
             }

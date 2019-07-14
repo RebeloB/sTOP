@@ -12,6 +12,9 @@ import java.util.List;
 public class ReaderListBrands implements Iterable<String>{
 
     private List<String> listBrands = new LinkedList<>();
+    String[] words;
+    private boolean valid;
+
     private File marcas = new File("resources/Marcas_Veiculos_Motorizados.txt");
 
     public void readFileBrands() throws IOException {
@@ -20,7 +23,6 @@ public class ReaderListBrands implements Iterable<String>{
         BufferedReader bReader = new BufferedReader(fileReader);
 
         String line = "";
-        String[] word;
         String result = "";
 
         while((line = bReader.readLine()) != null){
@@ -30,16 +32,19 @@ public class ReaderListBrands implements Iterable<String>{
 
         bReader.close();
 
-        //word = result.split(" ");
+        words = result.split(" ");
 
-        Collections.addAll(listBrands, result);
+        //Collections.addAll(listBrands, result);
     }
 
     public boolean isValid(String word){
-        if(listBrands.contains(word)){
-            return true;
-        }
-        return false;
+        for (int i = 0; i < this.words.length; i++) {
+            if (this.words[i].equals(word)) {
+                return valid = true;
+            } else{
+                valid = false;
+            }
+        } return valid;
     }
 
     @Override

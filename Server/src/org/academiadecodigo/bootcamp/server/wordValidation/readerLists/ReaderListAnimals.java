@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +11,8 @@ import java.util.List;
 public class ReaderListAnimals implements Iterable<String>{
 
     private List<String> listAnimals = new LinkedList<>();
+    private String[] words;
+    private boolean valid;
 
     private File animais = new File("resources/Animais.txt");
 
@@ -21,7 +22,6 @@ public class ReaderListAnimals implements Iterable<String>{
         BufferedReader bReader = new BufferedReader(fileReader);
 
         String line = "";
-        String[] word;
         String result = "";
 
         while((line = bReader.readLine()) != null){
@@ -31,21 +31,30 @@ public class ReaderListAnimals implements Iterable<String>{
 
         bReader.close();
 
-        //word = result.split(" ");
+        words = result.split(" " );
+        //Collections.addAll(listAnimals, result);
+    }
 
-        Collections.addAll(listAnimals, result);
+    public void printWords() {
+        for (int i = 0; i < this.words.length; i++) {
+            System.out.println(words[i]);
+        }
     }
 
     public boolean isValid(String word){
-        if(listAnimals.contains(word)){
-            return true;
-        }
-        return false;
+        for (int i = 0; i < this.words.length; i++) {
+            if (this.words[i].equals(word)) {
+                return valid = true;
+            } else{
+                valid = false;
+            }
+        } return valid;
     }
 
     @Override
-    public Iterator<String> iterator() {
+    public Iterator<String> iterator () {
         return listAnimals.iterator();
     }
 }
+
 
