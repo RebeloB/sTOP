@@ -20,6 +20,7 @@ public class PromptMenu {
         this.client = client;
         prompt = new Prompt(client.getInputStream(),new PrintStream(client.getOutputStream()));     // Created input for user commands
         promptQuestions = new PromptQuestions(prompt);
+
     }
 
 
@@ -31,14 +32,14 @@ public class PromptMenu {
     }
 
 
-    public void listCategorys(String[] categorys){   //todo Metodo a invocar com a lista das categorias;
-
-        promptQuestions.init(categorys);
+    public void listCategorys(/*String[] categorys*/int id){   //todo Metodo a invocar com a lista das categorias;
+        this.ID = id;
+        promptQuestions.init(/*categorys*/id);
     }
 
 
-    public void mainMenu(int id){
-        this.ID = id;
-        promptQuestions.showMainMenu(prompt, id);
+    public void mainMenu(){
+
+        promptQuestions.showMainMenu(prompt);
     }
 }
