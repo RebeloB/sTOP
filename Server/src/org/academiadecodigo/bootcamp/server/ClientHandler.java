@@ -11,6 +11,7 @@ public class ClientHandler {
     private BufferedReader in;
     private BufferedWriter out;
     private String nick;
+    private int ID;
 
     private PromptMenu promptMenu;
 
@@ -39,6 +40,7 @@ public class ClientHandler {
 
     public void start(int nick) {
         this.nick = "user" + nick;
+        this.ID = nick;
         while (!activeSocket.isClosed()){
             String message = read();
             if(message == null){
@@ -67,7 +69,8 @@ public class ClientHandler {
 
     public void send(String inputMsg, String user) {
         try {
-            String outputMessage = user + ": " + inputMsg + "\n";
+            //String outputMessage = user + ": " + inputMsg + "\n";
+            String outputMessage = String.valueOf(ID);
             char[] sendBuffer = outputMessage.toCharArray();
             out.write(sendBuffer);
             out.flush();

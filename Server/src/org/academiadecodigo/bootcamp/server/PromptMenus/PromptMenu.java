@@ -13,6 +13,7 @@ public class PromptMenu {
     private Socket client;
     private Prompt prompt;
     private PrintStream outPrint;
+    private int ID;
 
 
     public PromptMenu(Socket client) throws IOException {
@@ -36,7 +37,8 @@ public class PromptMenu {
     }
 
 
-    public void mainMenu(){
-        promptQuestions.showMainMenu(prompt);
+    public void mainMenu(int id){
+        this.ID = id;
+        promptQuestions.showMainMenu(prompt, id);
     }
 }

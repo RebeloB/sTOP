@@ -10,12 +10,14 @@ public  class PromptQuestions {
     private Prompt prompt;
     private String[] answers;
 
+
     public PromptQuestions(Prompt prompt){
         this.prompt = prompt;
     }
 
     public void init(String[] categorys) {
-        answers = new String[4];
+        answers = new String[5]; //TODO: length to 5 -> so we can add the ID on index 0
+        //TODO: add the ID to index 0
         categorysMenus(categorys);
     }
 
@@ -38,7 +40,8 @@ public  class PromptQuestions {
 
     /**   */
     private void joinAnswers(String answer,int answerIndex){
-        answers[answerIndex-1] = answer;
+
+        answers[answerIndex] = answer;   //Alterado de 4 para 5
 
         for (String word : answers){
             System.out.println(word);
@@ -48,8 +51,8 @@ public  class PromptQuestions {
 
 
 
-    public void showMainMenu(Prompt prompt){
-
+    public void showMainMenu(Prompt prompt, int id){
+        answers[0] = String.valueOf(id);
         String[] options = {" Enter game", " Create a game"};
 
         MenuInputScanner menuInput = new MenuInputScanner(options);
@@ -101,7 +104,7 @@ public  class PromptQuestions {
                 break;
             case 5:
                 System.err.println("Quit required");
-                endGame();
+                this.answers = endGame();
                 break;
         }
 
@@ -151,6 +154,7 @@ public  class PromptQuestions {
         return answers;
     }
 
-
-
+    public String[] getAnswers() {
+        return answers;
+    }
 }
