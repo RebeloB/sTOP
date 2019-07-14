@@ -21,7 +21,7 @@ public class Game {
      * @param rounds1
      * @param rounds2
      */
-    public void updateRoundScore(Player player, Rounds rounds1, Rounds rounds2){
+    public void updateGameScore(Player player, Rounds rounds1, Rounds rounds2){
 
         roundsScores.put(player,rounds1);
         roundsScores.put(player,rounds2);
@@ -34,7 +34,7 @@ public class Game {
      * get gameScore for all players
      */
     public void getGameScore(){
-        roundsScores.forEach((player, rounds)-> System.out.println(player + " " + rounds + " Total: " + gameScore));
+        roundsScores.forEach((player, rounds)-> System.out.println( player + " Total: " + gameScore));
     }
 
     @Override

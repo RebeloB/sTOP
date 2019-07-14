@@ -6,16 +6,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Rounds {
     /**
-     * HashMap<Player, score>
+     * HashMap<Round, score>
      */
     private int round;
-    private Player player;
     private int score;
     private ConcurrentHashMap<Integer, Integer> playerRound; // round, score
 
-    public Rounds(Player player,int round, int score){
+    public Rounds(int round, int score){
         playerRound = new ConcurrentHashMap<>();
-        this.player = player;
         this.score = score;
         this.round = round;
     }
@@ -32,8 +30,7 @@ public class Rounds {
      */
 
     public void roundsScores(){
-        System.out.println("Round: " + round);
-        System.out.println(playerRound.entrySet());
+        System.out.println("Round = Score:  " + playerRound.entrySet()); // TODO: 2019-07-14 number of round wrong
     }
 
     public int getScore() {

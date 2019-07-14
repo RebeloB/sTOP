@@ -20,9 +20,9 @@ public class MainTest {
          * Prints Round score
          *
          */
-        Rounds firstRounds = new Rounds(player1,1,20);
-        firstRounds.updateScore();
-        firstRounds.roundsScores();
+        Rounds firstRoundsP1 = new Rounds(1,20);
+        firstRoundsP1.updateScore();
+        firstRoundsP1.roundsScores();
 
         /**
          * Second Player Round 1
@@ -30,7 +30,7 @@ public class MainTest {
          * Prints Round score
          *
          */
-        Rounds firstRoundsP2 = new Rounds(player2,1,20);
+        Rounds firstRoundsP2 = new Rounds(1,20);
         firstRoundsP2.updateScore();
         firstRoundsP2.roundsScores();
 
@@ -40,9 +40,9 @@ public class MainTest {
          * Prints Round score
          *
          */
-        Rounds secondRounds = new Rounds(player1,2,10);
-        secondRounds.updateScore();
-        secondRounds.roundsScores();
+        Rounds secondRoundsP1 = new Rounds(2,10);
+        secondRoundsP1.updateScore();
+        secondRoundsP1.roundsScores();
 
         /**
          * Second Player Round 2
@@ -50,7 +50,7 @@ public class MainTest {
          * Prints Round score
          *
          */
-        Rounds secondRoundsP2 = new Rounds(player2,2,20);
+        Rounds secondRoundsP2 = new Rounds(2,20);
         secondRoundsP2.updateScore();
         secondRoundsP2.roundsScores();
 
@@ -60,8 +60,8 @@ public class MainTest {
         /**
          * Gets GameScore ()
          */
-        game1.updateRoundScore(player1, firstRounds, secondRounds);
-        game1.updateRoundScore(player2, firstRoundsP2, secondRoundsP2);
+        game1.updateGameScore(player1, firstRoundsP1, secondRoundsP1);
+        game1.updateGameScore(player2, firstRoundsP2, secondRoundsP2);
 
         game1.getGameScore();
 

@@ -19,7 +19,7 @@ public class Ranking {
         this.ranking = new ConcurrentHashMap<>();
         this.player = player;
         this.game = game;
-        this.rounds = rounds;
+
     }
 
     /**
