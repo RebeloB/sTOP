@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.server;
 
+import org.academiadecodigo.bootcamp.server.Scoring.CompareAnswers;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +20,7 @@ public class Server {
     private ExecutorService pool;
     private List<ClientHandler> clientHandler;
     private static int connections = 1;
+    private CompareAnswers compareAnswers = new CompareAnswers();
 
 
     void init() {

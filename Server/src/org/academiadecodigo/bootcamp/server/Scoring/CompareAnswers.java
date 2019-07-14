@@ -1,11 +1,13 @@
 package org.academiadecodigo.bootcamp.server.Scoring;
 
+import org.academiadecodigo.bootcamp.server.ClientHandler;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListAnimals;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListBrands;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListCountries;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListFruits;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CompareAnswers {
 
@@ -22,8 +24,10 @@ public class CompareAnswers {
     private String player3 = "3,MaCaCo,KiWi,PeUgEoT, ".toLowerCase();
     private String player4 = "4, , , , ".toLowerCase();
 
-    private String[] playersAnswers = new String[]{player1, player2, player3, player4};
-    private String[][] ah;
+
+
+    private String[] playersAnswers = new String[/*numbOfPlayers*/]{player1, player2, player3, player4};
+    private String[][] ah; //TODO: REFACTOR THIS SHIT!!!!!!!!!!!!
 
 
     public CompareAnswers(){
@@ -36,7 +40,7 @@ public class CompareAnswers {
 
 
     private void validate() {
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < 5; i++) { //TODO: REFACTOR THIS SHITT
 
             for (int j = 0; j < 4; j++) {  //TODO: change magic number 4 to player number
                 switch (i) {
@@ -143,6 +147,12 @@ public class CompareAnswers {
             countries.readFileCountries();
         }catch (IOException io){
             System.out.println(io.getMessage());
+        }
+    }
+
+    public void receiveAnswers(List<ClientHandler> activePlayers){
+        for (ClientHandler client : activePlayers){
+
         }
     }
 
