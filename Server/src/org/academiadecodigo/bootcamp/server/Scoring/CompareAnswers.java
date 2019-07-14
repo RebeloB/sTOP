@@ -9,7 +9,7 @@ public class CompareAnswers {
 
 
     private String player1 = "1,Panda,Banana,bigode,Portugal".toLowerCase();
-    private String player2 = "2,macaco,kiwi,peugeot,espanha".toLowerCase();
+    private String player2 = "2,Reimao,kiwi,peugeot,espanha".toLowerCase();
     private String player3 = "3,MaCaCo,KiWi,PeUgEoT, ".toLowerCase();
     private String player4 = "4, , , , ".toLowerCase();
 
