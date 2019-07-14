@@ -1,4 +1,6 @@
-package org.academiadecodigo.bootcamp.server.wordValidation;
+package org.academiadecodigo.bootcamp.server.pontuation;
+
+import org.academiadecodigo.bootcamp.server.wordValidation.Player;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -9,7 +11,7 @@ public class Rounds {
     private int round;
     private Player player;
     private int score;
-    private ConcurrentHashMap<Player, Integer> playerRound;
+    private ConcurrentHashMap<Integer, Integer> playerRound; // round, score
 
     public Rounds(Player player,int round, int score){
         playerRound = new ConcurrentHashMap<>();
@@ -17,15 +19,16 @@ public class Rounds {
         this.score = score;
         this.round = round;
     }
+
     /**
      * Put player and score of the round and increments round
      */
     public void updateScore(){
-        playerRound.put(player, score);
+        playerRound.put(round, score);
     }
 
     /**
-     *
+     * Set of Player round
      */
 
     public void roundsScores(){
@@ -39,10 +42,6 @@ public class Rounds {
 
     public int getRound() {
         return round;
-    }
-
-    public ConcurrentHashMap<Player, Integer> getPlayerRound() {
-        return playerRound;
     }
 
     @Override

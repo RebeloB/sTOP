@@ -1,9 +1,8 @@
 package org.academiadecodigo.bootcamp.server.wordValidation;
 
-import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListAnimals;
-import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListBrands;
-import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListCountries;
-import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListFruits;
+import org.academiadecodigo.bootcamp.server.pontuation.Game;
+import org.academiadecodigo.bootcamp.server.pontuation.Ranking;
+import org.academiadecodigo.bootcamp.server.pontuation.Rounds;
 
 import java.io.IOException;
 
@@ -11,11 +10,6 @@ public class MainTest {
     public static void main(String[] args) throws IOException {
         Player player1 = new Player(1, "manu");
         Player player2 = new Player(2,"david");
-
-        Rounds firstRounds = new Rounds(player1,1,20);
-        Rounds secondRounds = new Rounds(player1,2,10);
-        Rounds firstRoundsP2 = new Rounds(player2,1,20);
-        Rounds secondRoundsP2 = new Rounds(player2,2,20);
 
         Game game1 = new Game();
 
@@ -26,6 +20,7 @@ public class MainTest {
          * Prints Round score
          *
          */
+        Rounds firstRounds = new Rounds(player1,1,20);
         firstRounds.updateScore();
         firstRounds.roundsScores();
 
@@ -35,6 +30,7 @@ public class MainTest {
          * Prints Round score
          *
          */
+        Rounds firstRoundsP2 = new Rounds(player2,1,20);
         firstRoundsP2.updateScore();
         firstRoundsP2.roundsScores();
 
@@ -44,6 +40,7 @@ public class MainTest {
          * Prints Round score
          *
          */
+        Rounds secondRounds = new Rounds(player1,2,10);
         secondRounds.updateScore();
         secondRounds.roundsScores();
 
@@ -53,6 +50,7 @@ public class MainTest {
          * Prints Round score
          *
          */
+        Rounds secondRoundsP2 = new Rounds(player2,2,20);
         secondRoundsP2.updateScore();
         secondRoundsP2.roundsScores();
 
@@ -62,8 +60,8 @@ public class MainTest {
         /**
          * Gets GameScore ()
          */
-        game1.UpdateGameScore(player1, firstRounds, secondRounds);
-        game1.UpdateGameScore(player2, firstRoundsP2, secondRoundsP2);
+        game1.updateRoundScore(player1, firstRounds, secondRounds);
+        game1.updateRoundScore(player2, firstRoundsP2, secondRoundsP2);
 
         game1.getGameScore();
 
@@ -92,26 +90,12 @@ public class MainTest {
 
 
         //----------------------------------------------------------------------
-/*
-        WordReader reader = new WordReader();
-
-        try {
-            reader.initFileReader();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        //reader.initReader();
-
-        reader.readLinesAnimals();
-*/
-
-
 
 /**
- * Animal List: with List view
+ * TESTING:
+ *  Animal List: with List view
  * */
-
+/*
         ReaderListAnimals listAnimals = new ReaderListAnimals();
 
 
@@ -120,25 +104,14 @@ public class MainTest {
         listAnimals.printWords();
 
         System.out.println(listAnimals.isValid("cao"));
-
+*/
 /**
  * Fruit List: with List view
  */
-/*
 
-    ReaderListFruits listFruits = new ReaderListFruits();
 
-    try {
 
-        listFruits.readFileFruits();
-        System.out.println("\nLista Frutas: ");
 
-        for (String f: listFruits) System.out.println(f);
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-*/
 /**
  * BrandsMotor List: with List view
  */

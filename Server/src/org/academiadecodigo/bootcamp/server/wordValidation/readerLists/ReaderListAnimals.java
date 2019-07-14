@@ -8,13 +8,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ReaderListAnimals implements Iterable<String>{
+public class ReaderListAnimals{
 
-    private List<String> listAnimals = new LinkedList<>();
     private String[] words;
     private boolean valid;
 
-    private File animais = new File("resources/Animais.txt");
+    private File animais = new File("/Users/codecadet/Desktop/sTOP/Server/resources/Animais.txt");
 
     public void readFileAnimals() throws IOException {
 
@@ -32,7 +31,6 @@ public class ReaderListAnimals implements Iterable<String>{
         bReader.close();
 
         words = result.split(" " );
-        //Collections.addAll(listAnimals, result);
     }
 
     public void printWords() {
@@ -49,11 +47,6 @@ public class ReaderListAnimals implements Iterable<String>{
                 valid = false;
             }
         } return valid;
-    }
-
-    @Override
-    public Iterator<String> iterator () {
-        return listAnimals.iterator();
     }
 }
 
