@@ -15,11 +15,12 @@ public class PromptMenu {
     //private BufferedReader in;
     private PrintStream outPrint;
     private int ID;
+    private boolean done;
 
 
     public PromptMenu(Socket client, BufferedReader in, BufferedWriter out) throws IOException {
         this.client = client;
-
+        this.done = false;
         prompt = new Prompt(client.getInputStream(), new PrintStream(client.getOutputStream()));     // Created input for user commands
         //this.out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
         //this.in = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -63,5 +64,13 @@ public class PromptMenu {
 
     public PromptQuestions getPromptQuestions() {
         return promptQuestions;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    public boolean isDone() {
+        return done;
     }
 }

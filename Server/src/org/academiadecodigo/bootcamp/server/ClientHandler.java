@@ -13,6 +13,7 @@ public class ClientHandler {
     private String nick;
     private int ID;
 
+
     private PromptMenu promptMenu;
 
 
@@ -38,6 +39,7 @@ public class ClientHandler {
         this.ID = nick;
         promptMenu.listCategorys(ID);
         while (!activeSocket.isClosed()){
+
             String message = read();
             if(message == null){
                 close();
@@ -127,4 +129,6 @@ public class ClientHandler {
     public PromptMenu getPromptMenu() {
         return promptMenu;
     }
+
+
 }

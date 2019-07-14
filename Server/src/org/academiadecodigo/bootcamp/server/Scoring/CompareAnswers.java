@@ -20,14 +20,14 @@ public class CompareAnswers {
     private int numberOfPlayers;
 
 
-    private String player1 = "1,Cão,Banana,bigode,Portugal".toLowerCase();
+    /*private String player1 = "1,Cão,Banana,bigode,Portugal".toLowerCase();
     private String player2 = "2,macaco,kiwi,peugeot,espanha".toLowerCase();
     private String player3 = "3,MaCaCo,KiWi,PeUgEoT, ".toLowerCase();
-    private String player4 = "4, , , , ".toLowerCase();
+    private String player4 = "4, , , , ".toLowerCase();*/
 
 
 
-    private String[] playersAnswers = new String[numberOfPlayers];
+    //private String[] playersAnswers = new String[numberOfPlayers];
     private String[][] ah; //TODO: REFACTOR THIS SHIT!!!!!!!!!!!!
 
 
@@ -158,6 +158,8 @@ public class CompareAnswers {
             ah[counter] = client.getPromptMenu().getPromptQuestions().getAnswers();
             counter++;
         }
+        initLists();
+        compare();
     }
 
     private int[] getScores(){
@@ -176,15 +178,6 @@ public class CompareAnswers {
 
         }
             return scores;
-    }
-
-
-    public static void main(String[] args) {
-            CompareAnswers comp = new CompareAnswers();
-            comp.initLists();
-            comp.compare();
-
-
     }
 
     }
