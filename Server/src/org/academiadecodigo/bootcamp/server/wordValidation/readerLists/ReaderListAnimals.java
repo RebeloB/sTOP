@@ -14,7 +14,7 @@ public class ReaderListAnimals implements Iterable<String>{
     private String[] words;
     private boolean valid;
 
-    private File animais = new File("/Users/codecadet/Desktop/sTOP/Server/resources/Animais.txt");
+    private File animais = new File("resources/Animais.txt");
 
     public void readFileAnimals() throws IOException {
 

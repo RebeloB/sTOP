@@ -15,7 +15,7 @@ public class ReaderListBrands implements Iterable<String>{
     String[] words;
     private boolean valid;
 
-    private File marcas = new File("/Users/codecadet/Desktop/sTOP/Server/resources/Marcas_Veiculos_Motorizados.txt");
+    private File marcas = new File("resources/Marcas_Veiculos_Motorizados.txt");
 
     public void readFileBrands() throws IOException {
 

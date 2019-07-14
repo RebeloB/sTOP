@@ -15,7 +15,7 @@ public class ReaderListFruits implements Iterable<String> {
     String[] words;
     private boolean valid;
 
-    private File frutas = new File("/Users/codecadet/Desktop/sTOP/Server/resources/Frutas.txt");
+    private File frutas = new File("resources/Frutas.txt");
 
     public void readFileFruits() throws IOException {
 

@@ -15,7 +15,7 @@ public class ReaderListCountries implements Iterable<String> {
     String[] words;
     private boolean valid;
 
-    private File paises = new File("/Users/codecadet/Desktop/sTOP/Server/resources/Paises.txt");
+    private File paises = new File("resources/Paises.txt");
 
     public void readFileCountries() throws IOException {
 
