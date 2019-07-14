@@ -9,16 +9,21 @@ import java.util.Arrays;
 public  class PromptQuestions {
     private Prompt prompt;
     private String[] answers;
+    private PromptMenu promptMenu;
 
 
-    public PromptQuestions(Prompt prompt){
+    public PromptQuestions(Prompt prompt, PromptMenu promptMenu){
+        this.promptMenu = promptMenu;
         this.prompt = prompt;
     }
 
     public void init(/*String[] categorys*/ int id) {
         answers = new String[5]; //TODO: length to 5 -> so we can add the ID on index 0
         //TODO: add the ID to index 0
-        answers[0] = String.valueOf(id);
+        answers[0] = (id + ",");
+        for (int i = 1; i < answers.length; i++) {
+            answers[i] = ",";
+        }
         categorysMenus(/*categorys*/);
     }
 
@@ -35,14 +40,14 @@ public  class PromptQuestions {
 
         String answer =  prompt.getUserInput(nickname);
         System.out.println(answer);
-        return  answer;
+        return answer;
     }
 
 
     /**   */
     private void joinAnswers(String answer,int answerIndex){
 
-        answers[answerIndex] = answer;   //Alterado de 4 para 5
+        answers[answerIndex] = (answer + ",");   //Alterado de 4 para 5
 
         for (String word : answers){
             System.out.println(word);
@@ -109,7 +114,7 @@ public  class PromptQuestions {
                 break;
             case 5:
                 System.err.println("Quit required");
-                this.answers = endGame();
+                /*this.answers = */endGame();
                 System.out.println(getAnswers() + " of player");
                 return;
         }
@@ -155,9 +160,14 @@ public  class PromptQuestions {
         return answer;
     }
 
-    private String[] endGame(){
+    private void /*String[]*/ endGame(){
         System.out.println("Player asked to end the game!");
-        return answers;
+        String test = "";
+        //promptMenu.send(this.answers);
+        for (int i = 0; i < answers.length; i++) {
+            test = test + answers[i];
+        }
+        System.out.println(test);
     }
 
     public String[] getAnswers() {
