@@ -11,6 +11,7 @@ public class ClientHandler {
     private BufferedReader in;
     private BufferedWriter out;
     private String nick;
+    private int ID;
 
     private PromptMenu promptMenu;
 
@@ -19,19 +20,14 @@ public class ClientHandler {
         this.activeSocket = activeSocket;
         this.server = server;
         this.nick = "user";
-        try {
-            promptMenu = new PromptMenu(activeSocket);
-            init();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        init();
     }
 
     public void init(){
         try {
             this.in = new BufferedReader(new InputStreamReader(activeSocket.getInputStream()));
             this.out = new BufferedWriter(new OutputStreamWriter(activeSocket.getOutputStream()));
+            promptMenu = new PromptMenu(activeSocket, in ,out);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,6 +35,8 @@ public class ClientHandler {
 
     public void start(int nick) {
         this.nick = "user" + nick;
+        this.ID = nick;
+        promptMenu.listCategorys(ID);
         while (!activeSocket.isClosed()){
             String message = read();
             if(message == null){
@@ -59,6 +57,7 @@ public class ClientHandler {
             char[] receiveBuffer = new char[1024];
             int charRead = in.read(receiveBuffer);
             receiveBufferStr = String.valueOf(receiveBuffer, 0, charRead).trim();
+            System.out.println(receiveBufferStr);
         } catch (IOException ioEx) {
             System.out.println(ioEx.getMessage());
         }
@@ -68,6 +67,7 @@ public class ClientHandler {
     public void send(String inputMsg, String user) {
         try {
             String outputMessage = user + ": " + inputMsg + "\n";
+            //String outputMessage = String.valueOf(ID);
             char[] sendBuffer = outputMessage.toCharArray();
             out.write(sendBuffer);
             out.flush();
@@ -122,5 +122,9 @@ public class ClientHandler {
         }
         send("Couldn't handle the command: " + clientMessage, "Server");
         return;
+    }
+
+    public PromptMenu getPromptMenu() {
+        return promptMenu;
     }
 }

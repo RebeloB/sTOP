@@ -1,11 +1,13 @@
 package org.academiadecodigo.bootcamp.server.Scoring;
 
+import org.academiadecodigo.bootcamp.server.ClientHandler;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListAnimals;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListBrands;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListCountries;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListFruits;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CompareAnswers {
 
@@ -15,6 +17,7 @@ public class CompareAnswers {
     private ReaderListFruits fruits;
     private ReaderListBrands brands;
     private ReaderListCountries countries;
+    private int numberOfPlayers;
 
 
     private String player1 = "1,Cão,Banana,bigode,Portugal".toLowerCase();
@@ -22,8 +25,10 @@ public class CompareAnswers {
     private String player3 = "3,MaCaCo,KiWi,PeUgEoT, ".toLowerCase();
     private String player4 = "4, , , , ".toLowerCase();
 
-    private String[] playersAnswers = new String[]{player1, player2, player3, player4};
-    private String[][] ah;
+
+
+    private String[] playersAnswers = new String[numberOfPlayers];
+    private String[][] ah; //TODO: REFACTOR THIS SHIT!!!!!!!!!!!!
 
 
     public CompareAnswers(){
@@ -36,9 +41,9 @@ public class CompareAnswers {
 
 
     private void validate() {
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < 5; i++) { //TODO: REFACTOR THIS SHITT
 
-            for (int j = 0; j < 4; j++) {  //TODO: change magic number 4 to player number
+            for (int j = 0; j < numberOfPlayers; j++) {
                 switch (i) {
                     case 1:
                         if (animals.isValid(ah[j][i])) {
@@ -70,14 +75,9 @@ public class CompareAnswers {
     }
 
 
-    public void compare() {
+    public int[] compare() {
 
-        //[numberOfPlayers][numberOfCategories+1]
-        ah = new String[4][5];// TODO: change magic number 5 and 4
-
-        for (int i = 0; i < playersAnswers.length; i++) {
-            ah[i] = playersAnswers[i].split(",");
-        }
+        //checks if the answers are correct based on the lists
         validate();
 
 
@@ -85,12 +85,12 @@ public class CompareAnswers {
         for (int i = 1; i < 5; i++) {  // TODO: change magic number 5
 
             //numOfPlayers
-            for (int j = 0; j < 4; j++) { //TODO: change magic number 4
+            for (int j = 0; j < numberOfPlayers; j++) {
                 words.add(ah[j][i]);
             }
             //mudança de categoria
 
-            //verificar respostas
+            //verificar respostas entre players
             attributePoints(i);
 
             //clear no mapa
@@ -105,14 +105,16 @@ public class CompareAnswers {
             System.out.println("------------------------------");
 
 
+
         }
+           return getScores();
     }
 
     private void attributePoints(int category) {
 
         for (String word : words) {
             if (!(word.equals(" "))) {
-                for (int j = 0; j < 4; j++) { //TODO: change magic number 4
+                for (int j = 0; j < numberOfPlayers; j++) {
 
                     if (words.get(word) == 1) {
                         if (ah[j][category].equals(word)) {
@@ -125,7 +127,7 @@ public class CompareAnswers {
                     }
                 }
             } else {
-                for (int i = 0; i < 4; i++) {   //TODO: change magic number 4
+                for (int i = 0; i < numberOfPlayers; i++) {
                     if (ah[i][category].equals(" ")) {
                         ah[i][category] = "0";
                     }
@@ -145,11 +147,43 @@ public class CompareAnswers {
         }
     }
 
+    public void receiveAnswers(List<ClientHandler> activePlayers){
+        //[numberOfPlayers][numberOfCategories+1]
+        numberOfPlayers = activePlayers.size();
+
+        ah = new String[activePlayers.size()][5];// TODO: change magic number 5
+        int counter = 0;
+
+        for (ClientHandler client : activePlayers){
+            ah[counter] = client.getPromptMenu().getPromptQuestions().getAnswers();
+            counter++;
+        }
+    }
+
+    private int[] getScores(){
+        int[] scores = new int[numberOfPlayers];
+        int playerScore = 0;
+        for (int i = 0; i < numberOfPlayers; i++) {
+            for (int j = 1; j < 5; j++) {
+                try {
+                    playerScore = playerScore + Integer.parseInt(ah[i][j]);
+                }catch (NumberFormatException nfe){
+                    System.out.println(nfe.getMessage());
+                }
+            }
+            scores[i] = playerScore;
+            System.out.println(scores[i]);
+
+        }
+            return scores;
+    }
+
 
     public static void main(String[] args) {
             CompareAnswers comp = new CompareAnswers();
             comp.initLists();
             comp.compare();
+
 
     }
 

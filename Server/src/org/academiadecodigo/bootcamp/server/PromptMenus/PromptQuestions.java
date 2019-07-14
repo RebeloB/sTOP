@@ -9,14 +9,22 @@ import java.util.Arrays;
 public  class PromptQuestions {
     private Prompt prompt;
     private String[] answers;
+    private PromptMenu promptMenu;
 
-    public PromptQuestions(Prompt prompt){
+
+    public PromptQuestions(Prompt prompt, PromptMenu promptMenu){
+        this.promptMenu = promptMenu;
         this.prompt = prompt;
     }
 
-    public void init(String[] categorys) {
-        answers = new String[4];
-        categorysMenus(categorys);
+    public void init(/*String[] categorys*/ int id) {
+        answers = new String[5]; //TODO: length to 5 -> so we can add the ID on index 0
+        //TODO: add the ID to index 0
+        answers[0] = (id + ",");
+        for (int i = 1; i < answers.length; i++) {
+            answers[i] = ",";
+        }
+        categorysMenus(/*categorys*/);
     }
 
 // TODO: 2019-07-13   Very spaguetthi !!
@@ -32,13 +40,14 @@ public  class PromptQuestions {
 
         String answer =  prompt.getUserInput(nickname);
         System.out.println(answer);
-        return  answer;
+        return answer;
     }
 
 
     /**   */
     private void joinAnswers(String answer,int answerIndex){
-        answers[answerIndex-1] = answer;
+
+        answers[answerIndex] = (answer + ",");   //Alterado de 4 para 5
 
         for (String word : answers){
             System.out.println(word);
@@ -68,12 +77,16 @@ public  class PromptQuestions {
 
 
 
-    public void categorysMenus(String[] option) {
-        String[] options = new String[option.length + 1];
-        for (int i = 0; i < option.length; i++) {
+    public void categorysMenus(/*String[] option*/) {
+        String[] options = new String[/*option.length*/ 4 + 1];
+/*        for (int i = 0; i < option.length; i++) {
             options[i] = option[i];
-        }
-        options[options.length-1] = "Quit";
+        }*/
+        options[0] = "Animals";
+        options[1] = "Vehicles Brand";
+        options[2] = "Fruits";
+        options[3] = "Countries";
+        options[/*options.length-1*/4] = "Quit";
 
         MenuInputScanner menu = new MenuInputScanner(options);
         menu.setMessage("Select a category: ");
@@ -87,25 +100,26 @@ public  class PromptQuestions {
                 joinAnswers(animalQuestions(),answer);
                 break;
             case 2:
-                System.out.println("vehicles category");
+                System.out.println("vehicles brands: ");
                 joinAnswers(vehiclesQuestions(),answer);
                 break;
             case 3:
-                System.out.println("fruits brands");
+                System.out.println("fruits: ");
                 joinAnswers(fruitQuestions(),answer);
                 break;
             case 4:
-                System.out.println("countrys ");
+                System.out.println("countries: ");
                 joinAnswers(countryQuestions(),answer);
-                countryQuestions();
+                //countryQuestions();
                 break;
             case 5:
                 System.err.println("Quit required");
-                endGame();
-                break;
+                /*this.answers = */endGame();
+                System.out.println(getAnswers() + " of player");
+                return;
         }
 
-        categorysMenus(option);
+        categorysMenus(/*option*/);
     }
 
 
@@ -146,11 +160,17 @@ public  class PromptQuestions {
         return answer;
     }
 
-    private String[] endGame(){
+    private void /*String[]*/ endGame(){
         System.out.println("Player asked to end the game!");
-        return answers;
+        String test = "";
+        //promptMenu.send(this.answers);
+        for (int i = 0; i < answers.length; i++) {
+            test = test + answers[i];
+        }
+        System.out.println(test);
     }
 
-
-
+    public String[] getAnswers() {
+        return answers;
+    }
 }
