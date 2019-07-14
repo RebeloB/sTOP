@@ -1,4 +1,6 @@
-package org.academiadecodigo.bootcamp.server.wordValidation;
+package org.academiadecodigo.bootcamp.server.pontuation;
+
+import org.academiadecodigo.bootcamp.server.wordValidation.Player;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -7,7 +9,7 @@ public class Ranking {
      * HashMap de Players.txt <nameId, PointsGame>
      *
      */
-    private ConcurrentHashMap<Player, Game> ranking; // TODO: 2019-07-13 change rounds to game
+    private ConcurrentHashMap<Player, Game> ranking;
     private Player player;
     private Rounds rounds;
     private Game game;
@@ -24,15 +26,11 @@ public class Ranking {
      * update must receive a HashMap of roundScore
      */
     public void updateRanking(){
-        // TODO: 2019-07-13 change rounds to game 
         ranking.put(player, game);
-        //Sum the score of the rounds and update
-
-
     }
 
     public void showRanking(){
-        System.out.println("Ranking: " + ranking.entrySet());
+        System.out.println("Ranking: \n" + ranking.entrySet());
     }
 
 
