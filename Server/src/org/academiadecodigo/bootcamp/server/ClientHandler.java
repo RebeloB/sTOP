@@ -20,19 +20,14 @@ public class ClientHandler {
         this.activeSocket = activeSocket;
         this.server = server;
         this.nick = "user";
-        try {
-            promptMenu = new PromptMenu(activeSocket);
-            init();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        init();
     }
 
     public void init(){
         try {
             this.in = new BufferedReader(new InputStreamReader(activeSocket.getInputStream()));
             this.out = new BufferedWriter(new OutputStreamWriter(activeSocket.getOutputStream()));
+            promptMenu = new PromptMenu(activeSocket, in ,out);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,6 +57,7 @@ public class ClientHandler {
             char[] receiveBuffer = new char[1024];
             int charRead = in.read(receiveBuffer);
             receiveBufferStr = String.valueOf(receiveBuffer, 0, charRead).trim();
+            System.out.println(receiveBufferStr);
         } catch (IOException ioEx) {
             System.out.println(ioEx.getMessage());
         }
@@ -126,5 +122,9 @@ public class ClientHandler {
         }
         send("Couldn't handle the command: " + clientMessage, "Server");
         return;
+    }
+
+    public PromptMenu getPromptMenu() {
+        return promptMenu;
     }
 }
