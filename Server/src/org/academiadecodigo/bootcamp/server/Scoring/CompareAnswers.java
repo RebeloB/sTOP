@@ -12,7 +12,7 @@ import java.util.List;
 public class CompareAnswers {
 
     //Animais/Fruta/Marcas/Países
-    private HashMapRevamp words = new HashMapRevamp();
+    private static HashMapRevamp words = new HashMapRevamp();
     private ReaderListAnimals animals;
     private ReaderListFruits fruits;
     private ReaderListBrands brands;
