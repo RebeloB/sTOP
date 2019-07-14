@@ -40,6 +40,7 @@ public class Server {
         while (serverSocket.isBound()) {
             for (ClientHandler cHList : clientHandler) {
                 if(cHList.getPromptMenu().isDone()) {
+                    System.out.println("cbjjbgjvghvghvgjvgjvj");
                     compareAnswers.receiveAnswers(clientHandler);
                     break;
                 }

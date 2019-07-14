@@ -14,7 +14,7 @@ public class ReaderListCountries {
     String[] words;
     private boolean valid;
 
-    private File paises = new File("resources/Paises.txt");
+    private File paises = new File("/Users/codecadet/Desktop/sTOP/Server/src/org/academiadecodigo/bootcamp/server/wordValidation/readerLists/ReaderListCountries.java");
 
     public void readFileCountries() throws IOException {
 

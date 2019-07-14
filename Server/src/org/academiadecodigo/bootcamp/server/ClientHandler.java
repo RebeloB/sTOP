@@ -28,7 +28,7 @@ public class ClientHandler {
         try {
             this.in = new BufferedReader(new InputStreamReader(activeSocket.getInputStream()));
             this.out = new BufferedWriter(new OutputStreamWriter(activeSocket.getOutputStream()));
-            promptMenu = new PromptMenu(activeSocket, in ,out);
+            promptMenu = new PromptMenu(activeSocket);
         } catch (IOException e) {
             e.printStackTrace();
         }
