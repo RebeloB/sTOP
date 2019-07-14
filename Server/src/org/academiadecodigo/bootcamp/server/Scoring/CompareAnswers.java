@@ -160,6 +160,7 @@ public class CompareAnswers {
         }
     }
 
+
     private int[] getScores(){
         int[] scores = new int[numberOfPlayers];
         int playerScore = 0;

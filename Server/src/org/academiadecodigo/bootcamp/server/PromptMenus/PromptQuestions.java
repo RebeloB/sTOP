@@ -118,7 +118,7 @@ public  class PromptQuestions {
                 System.out.println(getAnswers() + " of player");
                 return;
         }
-
+                                    // Mostrar Scores aqui se 1 dos players tiver terminado
         categorysMenus(/*option*/);
     }
 
