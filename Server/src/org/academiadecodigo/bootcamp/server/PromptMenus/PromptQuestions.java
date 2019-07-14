@@ -116,6 +116,7 @@ public  class PromptQuestions {
                 System.err.println("Quit required");
                 /*this.answers = */endGame();
                 System.out.println(getAnswers() + " of player");
+                promptMenu.setDone(true);
                 return;
         }
                                     // Mostrar Scores aqui se 1 dos players tiver terminado
@@ -164,13 +165,11 @@ public  class PromptQuestions {
         System.out.println("Player asked to end the game!");
         String test = "";
         //promptMenu.send(this.answers);
-        for (int i = 0; i < answers.length; i++) {
-            test = test + answers[i];
-        }
-        System.out.println(test);
     }
 
     public String[] getAnswers() {
         return answers;
     }
+
+
 }
