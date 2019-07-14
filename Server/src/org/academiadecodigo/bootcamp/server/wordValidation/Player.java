@@ -6,10 +6,15 @@ public class Player {
      */
     private int id;
     private String name;
+    private int points;
 
     public Player(int id, String name){
         this.id = id;
         this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

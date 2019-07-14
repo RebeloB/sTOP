@@ -14,7 +14,7 @@ public class ReaderListBrands{
     String[] words;
     private boolean valid;
 
-    private File marcas = new File("resources/Marcas_Veiculos_Motorizados.txt");
+    private File marcas = new File("/Users/codecadet/Desktop/sTOP/Server/src/org/academiadecodigo/bootcamp/server/wordValidation/readerLists/ReaderListBrands.java");
 
     public void readFileBrands() throws IOException {
 

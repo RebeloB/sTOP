@@ -13,7 +13,7 @@ public class ReaderListAnimals{
     private String[] words;
     private boolean valid;
 
-    private File animais = new File("/Users/codecadet/Desktop/sTOP/Server/resources/Animais.txt");
+    private File animais = new File("/Users/codecadet/Desktop/sTOP/Server/src/org/academiadecodigo/bootcamp/server/wordValidation/readerLists/ReaderListAnimals.java");
 
     public void readFileAnimals() throws IOException {
 

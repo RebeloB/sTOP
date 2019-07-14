@@ -1,7 +1,6 @@
 package org.academiadecodigo.bootcamp.server.PromptMenus;
 import org.academiadecodigo.bootcamp.Prompt;
 
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
