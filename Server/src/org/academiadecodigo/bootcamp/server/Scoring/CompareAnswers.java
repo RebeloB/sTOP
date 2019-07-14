@@ -76,7 +76,6 @@ public class CompareAnswers {
 
     public void compare() {
 
-
         //[numberOfPlayers][numberOfCategories+1]
         ah = new String[4][5];// TODO: change magic number 5 and 4
 
@@ -162,6 +161,6 @@ public class CompareAnswers {
             comp.initLists();
             comp.compare();
 
+    }
 
     }
-}

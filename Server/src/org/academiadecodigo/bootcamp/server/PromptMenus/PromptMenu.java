@@ -1,6 +1,5 @@
-package org.academiadecodigo.bootcamp.client.promptmenu;
+package org.academiadecodigo.bootcamp.server.PromptMenus;
 import org.academiadecodigo.bootcamp.Prompt;
-import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 
 
 import java.io.IOException;
@@ -25,14 +24,15 @@ public class PromptMenu {
 
     public String getNickname(){
 
-        String answer = promptQuestions.doUsername();
+        String answer = promptQuestions.promptUsername();
         System.out.println("Your nickname: " + answer);
         return answer;
     }
 
 
-    public void listCategorys(String[] categorys){
-        promptQuestions.categorysMenus(categorys);
+    public void listCategorys(String[] categorys){   //todo Metodo a invocar com a lista das categorias;
+
+        promptQuestions.init(categorys);
     }
 
 

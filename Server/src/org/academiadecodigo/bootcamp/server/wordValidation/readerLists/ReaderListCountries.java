@@ -9,9 +9,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ReaderListCountries implements Iterable<String> {
+public class ReaderListCountries {
 
-    private List<String> listCountries = new LinkedList<>();
     String[] words;
     private boolean valid;
 
@@ -34,7 +33,6 @@ public class ReaderListCountries implements Iterable<String> {
 
         words = result.split(" ");
 
-        Collections.addAll(listCountries, result);
     }
 
     public boolean isValid(String word){
@@ -45,10 +43,5 @@ public class ReaderListCountries implements Iterable<String> {
                 valid = false;
             }
         } return valid;
-    }
-
-    @Override
-    public Iterator<String> iterator() {
-        return listCountries.iterator();
     }
 }

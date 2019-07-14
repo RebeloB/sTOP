@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.server;
 
+import org.academiadecodigo.bootcamp.server.PromptMenus.PromptMenu;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -10,12 +12,20 @@ public class ClientHandler {
     private BufferedWriter out;
     private String nick;
 
+    private PromptMenu promptMenu;
+
 
     public ClientHandler(Socket activeSocket, Server server) {
         this.activeSocket = activeSocket;
         this.server = server;
         this.nick = "user";
-        init();
+        try {
+            promptMenu = new PromptMenu(activeSocket);
+            init();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void init(){

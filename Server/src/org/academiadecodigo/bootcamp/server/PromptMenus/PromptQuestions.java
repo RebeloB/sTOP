@@ -1,8 +1,10 @@
-package org.academiadecodigo.bootcamp.client.promptmenu;
+package org.academiadecodigo.bootcamp.server.PromptMenus;
 
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
+
+import java.util.Arrays;
 
 public  class PromptQuestions {
     private Prompt prompt;
@@ -12,29 +14,38 @@ public  class PromptQuestions {
         this.prompt = prompt;
     }
 
+    public void init(String[] categorys) {
+        answers = new String[4];
+        categorysMenus(categorys);
+    }
+
                                             // TODO: 2019-07-13   Very spaguetthi !!
 
-    public String doUsername(){
 
+    /**
+     *
+     * @returns the username chosen;
+     * */
+    public String promptUsername(){
         StringInputScanner nickname = new StringInputScanner();
         nickname.setMessage("Insert your nicknamme: ");
 
         String answer =  prompt.getUserInput(nickname);
+        System.out.println(answer);
         return  answer;
     }
 
 
-    private void joinAnswers(String answer){
-        for (int x=0; x < answers.length +1; x++){
-            if (answers[x] != null)
-                answers[x] = answer;
-                return;  // Break
+    /**   */
+    private void joinAnswers(String answer,int answerIndex){
+        answers[answerIndex-1] = answer;
+
+        for (String word : answers){
+            System.out.println(word);
         }
     }
 
-    public String[]  getFinalAnswers(){
-        return answers;
-    }
+
 
 
     public void showMainMenu(Prompt prompt){
@@ -58,69 +69,86 @@ public  class PromptQuestions {
 
 
     public void categorysMenus(String[] option) {
+        String[] options = new String[option.length + 1];
+        for (int i = 0; i < option.length; i++) {
+            options[i] = option[i];
+        }
+        options[options.length-1] = "Quit";
 
-        MenuInputScanner menu = new MenuInputScanner(option);
+        MenuInputScanner menu = new MenuInputScanner(options);
         menu.setMessage("Select a category: ");
 
         int answer = prompt.getUserInput(menu);
-        String catgHolder = option[answer];
 
-        switch (catgHolder){
+        switch (answer){
 
-            case "animals"  :
-                System.out.println(catgHolder + " category: ");
-                animalQuestions();
+            case 1 :
+                System.out.println("animals category: ");
+                joinAnswers(animalQuestions(),answer);
                 break;
-            case "fruits":
-                System.out.println(catgHolder + " category");
-                fruitQuestions();
+            case 2:
+                System.out.println("vehicles category");
+                joinAnswers(vehiclesQuestions(),answer);
                 break;
-            case "vehicles":
-                vehiclesQuestions();
+            case 3:
+                System.out.println("fruits brands");
+                joinAnswers(fruitQuestions(),answer);
                 break;
-            case "contrys":
+            case 4:
+                System.out.println("countrys ");
+                joinAnswers(countryQuestions(),answer);
                 countryQuestions();
                 break;
+            case 5:
+                System.err.println("Quit required");
+                endGame();
+                break;
         }
+
+        categorysMenus(option);
     }
 
 
 
 
-    public void animalQuestions() {
+    public String animalQuestions() {
         StringInputScanner answer = new StringInputScanner();
         answer.setMessage("An animal with the letter:  ");
 
         String  animalAnswer = prompt.getUserInput(answer);
-        System.out.println(animalAnswer);
-        joinAnswers(animalAnswer);
+        return  animalAnswer;
     }
 
-    private void  fruitQuestions(){
+    private String fruitQuestions(){
 
         StringInputScanner fruitInput = new StringInputScanner();
         fruitInput.setMessage("Say a fruit with the letter: ");
 
         String answer = prompt.getUserInput(fruitInput);
-        joinAnswers(answer);
+        return  answer;
     }
 
-    private void vehiclesQuestions(){
+    private String vehiclesQuestions(){
 
         StringInputScanner vehiclesInput = new StringInputScanner();
         vehiclesInput.setMessage("Insert a vehicle the the letter: ");
 
         String answer = prompt.getUserInput(vehiclesInput);
-        joinAnswers(answer);
+        return answer;
     }
 
 
-    private void countryQuestions(){
+    private String countryQuestions(){
         StringInputScanner countryInput = new StringInputScanner();
-        countryInput.setMessage("insert a contry with the letter: ");
+        countryInput.setMessage("Insert a country with the letter: ");
 
         String answer = prompt.getUserInput(countryInput);
-        joinAnswers(answer);
+        return answer;
+    }
+
+    private String[] endGame(){
+        System.out.println("Player asked to end the game!");
+        return answers;
     }
 
 
