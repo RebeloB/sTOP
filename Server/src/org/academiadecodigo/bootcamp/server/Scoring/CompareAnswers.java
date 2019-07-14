@@ -160,6 +160,7 @@ public class CompareAnswers {
         }
         initLists();
         compare();
+
     }
 
     private int[] getScores(){

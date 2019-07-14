@@ -115,8 +115,11 @@ public  class PromptQuestions {
             case 5:
                 System.err.println("Quit required");
                 /*this.answers = */endGame();
+                // Last message after quit!
                 System.out.println(getAnswers() + " of player");
+                System.out.println();
                 promptMenu.setDone(true);
+
                 return;
         }
 
@@ -164,12 +167,16 @@ public  class PromptQuestions {
     private void /*String[]*/ endGame(){
         System.out.println("Player asked to end the game!");
         String test = "";
-        //promptMenu.send(this.answers);
     }
 
     public String[] getAnswers() {
         return answers;
     }
 
-
+    @Override
+    public String toString() {
+        return "PromptQuestions{" +
+                "answers=" + Arrays.toString(answers) +
+                '}';
+    }
 }
