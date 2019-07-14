@@ -14,7 +14,7 @@ public class ReaderListFruits {
     String[] words;
     private boolean valid;
 
-    private File frutas = new File("/Users/codecadet/Desktop/sTOP/Server/src/org/academiadecodigo/bootcamp/server/wordValidation/readerLists/ReaderListFruits.java");
+    private File frutas = new File("/Users/codecadet/Desktop/GroupProject/sTOP/Server/resources/Frutas.txt");
 
     public void readFileFruits() throws IOException {
 

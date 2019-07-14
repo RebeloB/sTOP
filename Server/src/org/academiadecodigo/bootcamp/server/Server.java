@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp.server;
 
 import org.academiadecodigo.bootcamp.server.Scoring.CompareAnswers;
+import org.academiadecodigo.bootcamp.server.pontuation.Game;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,33 +19,32 @@ public class Server {
     private Socket activeSocket;
     private BufferedReader inputMsg;
     private ExecutorService pool;
-    private List<ClientHandler> clientHandler;
-    private static int connections = 1;
+    private static List<ClientHandler> clientHandler;
+    private static int connections = 0;
+    private static int playerID = 1;
     private CompareAnswers compareAnswers = new CompareAnswers();
+    private int numPlayers;
+
 
 
     void init() {
+
+
         Collections.synchronizedList(new LinkedList<ClientHandler>());
         this.clientHandler = Collections.synchronizedList(new LinkedList<>());
         this.inputMsg = new BufferedReader(new InputStreamReader(System.in));
 
         try {
             this.serverSocket = new ServerSocket(port());
+            numPlayers = numPlayers();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        pool = Executors.newFixedThreadPool(100);
+        pool = Executors.newFixedThreadPool(numPlayers);
     }
 
     void start() {
         while (serverSocket.isBound()) {
-            for (ClientHandler cHList : clientHandler) {
-                if(cHList.getPromptMenu().isDone()) {
-                    System.out.println("cbjjbgjvghvghvgjvgjvj");
-                    compareAnswers.receiveAnswers(clientHandler);
-                    break;
-                }
-            }
             try {
                 this.activeSocket = serverSocket.accept();
                 System.out.println("Client connected " + activeSocket.getInetAddress());
@@ -55,8 +55,12 @@ public class Server {
                 @Override
                 public void run() {
                     ClientHandler newClientHandler = new ClientHandler(activeSocket, Server.this);
-                    clientHandler.add(newClientHandler);    //
-                    newClientHandler.start(Server.connections++);
+                    clientHandler.add(newClientHandler);
+
+                    Server.connections++;
+
+                    waiting();
+                    newClientHandler.start(Server.playerID++);
                 }
             });
         }
@@ -106,6 +110,37 @@ public class Server {
                 return;
             }
         }
+    }
+
+    public static List<ClientHandler> getClientHandler() {
+        return clientHandler;
+    }
+
+    public synchronized void waiting(){
+        while (connections != numPlayers){
+            try {
+                this.wait();
+                break;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        this.notifyAll();
+        Game.randomLetter();
+    }
+
+    private int numPlayers() {
+        try {
+            System.out.println("\nEnter number of players: ");
+            int numPlayers = 0;
+            numPlayers = Integer.
+                    parseInt(inputMsg.
+                            readLine());
+            return numPlayers;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Integer.parseInt(null);
     }
 
 }

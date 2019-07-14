@@ -1,6 +1,8 @@
 package org.academiadecodigo.bootcamp.server.Scoring;
 
 import org.academiadecodigo.bootcamp.server.ClientHandler;
+import org.academiadecodigo.bootcamp.server.Server;
+import org.academiadecodigo.bootcamp.server.pontuation.Game;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListAnimals;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListBrands;
 import org.academiadecodigo.bootcamp.server.wordValidation.readerLists.ReaderListCountries;
@@ -12,26 +14,20 @@ import java.util.List;
 public class CompareAnswers {
 
     //Animais/Fruta/Marcas/Países
+
     private static HashMapRevamp words = new HashMapRevamp();
-    private ReaderListAnimals animals;
-    private ReaderListFruits fruits;
-    private ReaderListBrands brands;
-    private ReaderListCountries countries;
-    private int numberOfPlayers;
+    private static ReaderListAnimals animals;
+    private static ReaderListFruits fruits;
+    private static ReaderListBrands brands;
+    private static ReaderListCountries countries;
+    private static int numberOfPlayers;
+    private static String letter;
+    private static int[] allScores;
+
+    private static String[][] answerMatrix;
 
 
-    /*private String player1 = "1,Cão,Banana,bigode,Portugal".toLowerCase();
-    private String player2 = "2,macaco,kiwi,peugeot,espanha".toLowerCase();
-    private String player3 = "3,MaCaCo,KiWi,PeUgEoT, ".toLowerCase();
-    private String player4 = "4, , , , ".toLowerCase();*/
-
-
-
-    //private String[] playersAnswers = new String[numberOfPlayers];
-    private String[][] ah; //TODO: REFACTOR THIS SHIT!!!!!!!!!!!!
-
-
-    public CompareAnswers(){
+    public CompareAnswers() {
         animals = new ReaderListAnimals();
         fruits = new ReaderListFruits();
         brands = new ReaderListBrands();
@@ -40,42 +36,42 @@ public class CompareAnswers {
     }
 
 
-    private void validate() {
-        for (int i = 1; i < 5; i++) { //TODO: REFACTOR THIS SHITT
+    private static void validate() {
+        for (int i = 1; i < 5; i++) { //TODO: Change Magic number 5
 
             for (int j = 0; j < numberOfPlayers; j++) {
                 switch (i) {
                     case 1:
-                        if (animals.isValid(ah[j][i])) {
+                        if (!(animals.isValid(answerMatrix[j][i]))) {
+                            answerMatrix[j][i] = " ";
                             break;
                         }
-                        ah[j][i] = " ";
                         break;
                     case 2:
-                        if (fruits.isValid(ah[j][i])) {
-                        break;
+                        if (fruits.isValid(answerMatrix[j][i])) {
+                            break;
                         }
-                            ah[j][i] = " ";
+                        answerMatrix[j][i] = " ";
                         break;
 
                     case 3:
-                        if (brands.isValid(ah[j][i])) {
-                        break;
+                        if (brands.isValid(answerMatrix[j][i])) {
+                            break;
                         }
-                            ah[j][i] = " ";
+                        answerMatrix[j][i] = " ";
                         break;
                     case 4:
-                        if (countries.isValid(ah[j][i])) {
-                        break;
+                        if (countries.isValid(answerMatrix[j][i])) {
+                            break;
                         }
-                            ah[j][i] = " ";
+                        answerMatrix[j][i] = " ";
                 }
             }
         }
     }
 
 
-    public int[] compare() {
+    private static void compare() {
 
         //checks if the answers are correct based on the lists
         validate();
@@ -86,7 +82,7 @@ public class CompareAnswers {
 
             //numOfPlayers
             for (int j = 0; j < numberOfPlayers; j++) {
-                words.add(ah[j][i]);
+                words.add(answerMatrix[j][i]);
             }
             //mudança de categoria
 
@@ -96,90 +92,112 @@ public class CompareAnswers {
             //clear no mapa
             words.clear();
 
-            //apagar esta parte foi só pra testes
-            System.out.println("Category: " + i);
-            System.out.println("player1 points: " + ah[0][i]);
-            System.out.println("player2 points: " + ah[1][i]);
-            System.out.println("player3 points: " + ah[2][i]);
-            System.out.println("player4 points: " + ah[3][i]);
-            System.out.println("------------------------------");
-
+            System.out.println("");
 
 
         }
-           return getScores();
+        countScores();
     }
 
-    private void attributePoints(int category) {
+    private static void attributePoints(int category) {
 
         for (String word : words) {
             if (!(word.equals(" "))) {
                 for (int j = 0; j < numberOfPlayers; j++) {
 
                     if (words.get(word) == 1) {
-                        if (ah[j][category].equals(word)) {
-                            ah[j][category] = "10";
+                        if (answerMatrix[j][category].equals(word)) {
+                            answerMatrix[j][category] = "10";
                         }
                     } else {
-                        if (ah[j][category].equals(word)) {
-                            ah[j][category] = "5";
+                        if (answerMatrix[j][category].equals(word)) {
+                            answerMatrix[j][category] = "5";
                         }
                     }
                 }
             } else {
                 for (int i = 0; i < numberOfPlayers; i++) {
-                    if (ah[i][category].equals(" ")) {
-                        ah[i][category] = "0";
+                    if (answerMatrix[i][category].equals(" ")) {
+                        answerMatrix[i][category] = "0";
                     }
                 }
             }
         }
     }
 
-    public void initLists(){
+    public static void initLists() {
         try {
             animals.readFileAnimals();
             fruits.readFileFruits();
             brands.readFileBrands();
             countries.readFileCountries();
-        }catch (IOException io){
+
+        } catch (IOException io) {
             System.out.println(io.getMessage());
         }
     }
 
-    public void receiveAnswers(List<ClientHandler> activePlayers){
+    public static void receiveAnswers() {
         //[numberOfPlayers][numberOfCategories+1]
+        System.out.println("fsioafjasijfasjflkjaslkdfjlksjdfa");
+        List<ClientHandler> activePlayers = Server.getClientHandler();
         numberOfPlayers = activePlayers.size();
 
-        ah = new String[activePlayers.size()][5];// TODO: change magic number 5
+        answerMatrix = new String[activePlayers.size()][5];// TODO: change magic number 5
         int counter = 0;
 
-        for (ClientHandler client : activePlayers){
-            ah[counter] = client.getPromptMenu().getPromptQuestions().getAnswers();
+        for (ClientHandler client : activePlayers) {
+            answerMatrix[counter] = client.getPromptMenu().getPromptQuestions().getAnswers();
+            for (int i = 0; i < 5; i++) {
+                answerMatrix[counter][i] = answerMatrix[counter][i].toLowerCase();
+            }
             counter++;
         }
         initLists();
+        checkLetter();
         compare();
 
     }
 
 
-    private int[] getScores(){
+    private static int[] countScores() {
         int[] scores = new int[numberOfPlayers];
-        int playerScore = 0;
+        int playerScore;
         for (int i = 0; i < numberOfPlayers; i++) {
+            playerScore = 0;
             for (int j = 1; j < 5; j++) {
                 try {
-                    playerScore = playerScore + Integer.parseInt(ah[i][j]);
-                }catch (NumberFormatException nfe){
+                    //System.out.println(playerScore + Integer.parseInt(answerMatrix[i][j]));
+                    playerScore = playerScore + Integer.parseInt(answerMatrix[i][j]);
+                } catch (NumberFormatException nfe) {
                     System.out.println(nfe.getMessage());
                 }
             }
-            scores[i] = playerScore;
-            System.out.println(scores[i]);
+
+            int player = Integer.parseInt(answerMatrix[i][0])-1;
+
+            scores[player] = playerScore;
+            System.out.println("player" + (answerMatrix[i][0]) + ": " + scores[player]);
 
         }
-            return scores;
+        allScores = scores;
+        return scores;
     }
 
+
+    public static void checkLetter(){
+        letter = Game.getLetter();
+        char letterV20 = letter.charAt(0);
+        for (int i = 0; i < numberOfPlayers; i++) {
+            for (int j = 1; j < 5; j++) {
+                if (!(answerMatrix[i][j].charAt(0) == letterV20)){
+                    answerMatrix[i][j] = " ";
+                }
+            }
+        }
     }
+
+    public static int[] getAllScores() {
+        return allScores;
+    }
+}

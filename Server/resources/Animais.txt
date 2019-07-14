@@ -145,6 +145,7 @@ Toupeira
 Tubarão
 Uapiti
 Urso
+Vaca
 Veado
 Vespa
 Vespão

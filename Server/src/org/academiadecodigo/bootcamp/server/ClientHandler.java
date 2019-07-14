@@ -37,6 +37,8 @@ public class ClientHandler {
     public void start(int nick) {
         this.nick = "user" + nick;
         this.ID = nick;
+
+
         promptMenu.listCategorys(ID);
         while (!activeSocket.isClosed()){
 
