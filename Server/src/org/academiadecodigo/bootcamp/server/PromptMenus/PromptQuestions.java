@@ -102,7 +102,13 @@ public  class PromptQuestions {
         options[/*options.length-1*/4] = "Quit";
 
         MenuInputScanner menu = new MenuInputScanner(options);
-        menu.setMessage("THE LETTER IS: "+ letter +"\n\nSelect a category: ");
+        menu.setMessage("THE LETTER IS: "+ letter + "\n\n███████╗████████╗ ██████╗ ██████╗ \n" +
+                "██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗\n" +
+                "███████╗   ██║   ██║   ██║██████╔╝\n" +
+                "╚════██║   ██║   ██║   ██║██╔═══╝ \n" +
+                "███████║   ██║   ╚██████╔╝██║     \n" +
+                "╚══════╝   ╚═╝    ╚═════╝ ╚═╝  " +
+                "\n\nSelect a category: ");
 
         int answer = prompt.getUserInput(menu);
 
