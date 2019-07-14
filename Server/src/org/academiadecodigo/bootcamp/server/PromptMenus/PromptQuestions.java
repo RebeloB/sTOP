@@ -10,13 +10,16 @@ public  class PromptQuestions {
     private Prompt prompt;
     private String[] answers;
 
+
     public PromptQuestions(Prompt prompt){
         this.prompt = prompt;
     }
 
-    public void init(String[] categorys) {
-        answers = new String[4];
-        categorysMenus(categorys);
+    public void init(/*String[] categorys*/ int id) {
+        answers = new String[5]; //TODO: length to 5 -> so we can add the ID on index 0
+        //TODO: add the ID to index 0
+        answers[0] = String.valueOf(id);
+        categorysMenus(/*categorys*/);
     }
 
                                             // TODO: 2019-07-13   Very spaguetthi !!
@@ -38,7 +41,8 @@ public  class PromptQuestions {
 
     /**   */
     private void joinAnswers(String answer,int answerIndex){
-        answers[answerIndex-1] = answer;
+
+        answers[answerIndex] = answer;   //Alterado de 4 para 5
 
         for (String word : answers){
             System.out.println(word);
@@ -68,12 +72,16 @@ public  class PromptQuestions {
 
 
 
-    public void categorysMenus(String[] option) {
-        String[] options = new String[option.length + 1];
-        for (int i = 0; i < option.length; i++) {
+    public void categorysMenus(/*String[] option*/) {
+        String[] options = new String[/*option.length*/ 4 + 1];
+/*        for (int i = 0; i < option.length; i++) {
             options[i] = option[i];
-        }
-        options[options.length-1] = "Quit";
+        }*/
+        options[0] = "Animals";
+        options[1] = "Vehicles Brand";
+        options[2] = "Fruits";
+        options[3] = "Countries";
+        options[/*options.length-1*/4] = "Quit";
 
         MenuInputScanner menu = new MenuInputScanner(options);
         menu.setMessage("Select a category: ");
@@ -87,25 +95,26 @@ public  class PromptQuestions {
                 joinAnswers(animalQuestions(),answer);
                 break;
             case 2:
-                System.out.println("vehicles category");
+                System.out.println("vehicles brands: ");
                 joinAnswers(vehiclesQuestions(),answer);
                 break;
             case 3:
-                System.out.println("fruits brands");
+                System.out.println("fruits: ");
                 joinAnswers(fruitQuestions(),answer);
                 break;
             case 4:
-                System.out.println("countrys ");
+                System.out.println("countries: ");
                 joinAnswers(countryQuestions(),answer);
-                countryQuestions();
+                //countryQuestions();
                 break;
             case 5:
                 System.err.println("Quit required");
-                endGame();
-                break;
+                this.answers = endGame();
+                System.out.println(getAnswers() + " of player");
+                return;
         }
 
-        categorysMenus(option);
+        categorysMenus(/*option*/);
     }
 
 
@@ -151,6 +160,7 @@ public  class PromptQuestions {
         return answers;
     }
 
-
-
+    public String[] getAnswers() {
+        return answers;
+    }
 }
