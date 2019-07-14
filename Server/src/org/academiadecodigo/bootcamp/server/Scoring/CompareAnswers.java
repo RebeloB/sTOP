@@ -19,14 +19,14 @@ public class CompareAnswers {
     private ReaderListCountries countries;
 
 
-   /* private String player1 = "1,Cão,Banana,bigode,Portugal".toLowerCase();
+    private String player1 = "1,Cão,Banana,bigode,Portugal".toLowerCase();
     private String player2 = "2,macaco,kiwi,peugeot,espanha".toLowerCase();
     private String player3 = "3,MaCaCo,KiWi,PeUgEoT, ".toLowerCase();
-    private String player4 = "4, , , , ".toLowerCase(); */
+    private String player4 = "4, , , , ".toLowerCase();
 
 
 
-    //private String[] playersAnswers = new String[/*numbOfPlayers*/]{player1, player2, player3, player4};
+    private String[] playersAnswers = new String[/*numbOfPlayers*/]{player1, player2, player3, player4};
     private String[][] ah; //TODO: REFACTOR THIS SHIT!!!!!!!!!!!!
 
 
@@ -75,7 +75,6 @@ public class CompareAnswers {
 
 
     public void compare() {
-
 
 
         validate();
@@ -147,7 +146,7 @@ public class CompareAnswers {
 
     public void receiveAnswers(List<ClientHandler> activePlayers){
         //[numberOfPlayers][numberOfCategories+1]
-        ah = new String[activePlayers.size()][5];// TODO: change magic number 5 and 4
+        ah = new String[activePlayers.size()][5];// TODO: change magic number 5
         int counter = 0;
 
         for (ClientHandler client : activePlayers){
@@ -156,11 +155,28 @@ public class CompareAnswers {
         }
     }
 
+    public void sendScores(){
+        int[] scores = new int[4];
+        int playerScore = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 1; j < 5; j++) {
+                try {
+                    playerScore = playerScore + Integer.parseInt(ah[i][j]);
+                }catch (NumberFormatException nfe){
+                    System.out.println(nfe.getMessage());
+                }
+            }
+            scores[i] = playerScore;
+            System.out.println(scores[i]
+        }
+    }
+
 
     public static void main(String[] args) {
             CompareAnswers comp = new CompareAnswers();
             comp.initLists();
             comp.compare();
+            comp.sendScores();
 
     }
 
