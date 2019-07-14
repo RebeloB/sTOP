@@ -38,6 +38,12 @@ public class Server {
 
     void start() {
         while (serverSocket.isBound()) {
+            for (ClientHandler cHList : clientHandler) {
+                if(cHList.getPromptMenu().isDone()) {
+                    compareAnswers.receiveAnswers(clientHandler);
+                    break;
+                }
+            }
             try {
                 this.activeSocket = serverSocket.accept();
                 System.out.println("Client connected " + activeSocket.getInetAddress());
