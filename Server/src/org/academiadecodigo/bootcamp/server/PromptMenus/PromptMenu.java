@@ -39,4 +39,8 @@ public class PromptMenu {
     public void mainMenu(){
         promptQuestions.showMainMenu(prompt);
     }
+
+    public PromptQuestions getPromptQuestions() {
+        return promptQuestions;
+    }
 }

@@ -123,4 +123,8 @@ public class ClientHandler {
         send("Couldn't handle the command: " + clientMessage, "Server");
         return;
     }
+
+    public PromptMenu getPromptMenu() {
+        return promptMenu;
+    }
 }

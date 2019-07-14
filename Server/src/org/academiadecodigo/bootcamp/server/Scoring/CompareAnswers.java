@@ -19,14 +19,14 @@ public class CompareAnswers {
     private ReaderListCountries countries;
 
 
-    private String player1 = "1,Cão,Banana,bigode,Portugal".toLowerCase();
+   /* private String player1 = "1,Cão,Banana,bigode,Portugal".toLowerCase();
     private String player2 = "2,macaco,kiwi,peugeot,espanha".toLowerCase();
     private String player3 = "3,MaCaCo,KiWi,PeUgEoT, ".toLowerCase();
-    private String player4 = "4, , , , ".toLowerCase();
+    private String player4 = "4, , , , ".toLowerCase(); */
 
 
 
-    private String[] playersAnswers = new String[/*numbOfPlayers*/]{player1, player2, player3, player4};
+    //private String[] playersAnswers = new String[/*numbOfPlayers*/]{player1, player2, player3, player4};
     private String[][] ah; //TODO: REFACTOR THIS SHIT!!!!!!!!!!!!
 
 
@@ -76,12 +76,8 @@ public class CompareAnswers {
 
     public void compare() {
 
-        //[numberOfPlayers][numberOfCategories+1]
-        ah = new String[4][5];// TODO: change magic number 5 and 4
 
-        for (int i = 0; i < playersAnswers.length; i++) {
-            ah[i] = playersAnswers[i].split(",");
-        }
+
         validate();
 
 
@@ -150,8 +146,13 @@ public class CompareAnswers {
     }
 
     public void receiveAnswers(List<ClientHandler> activePlayers){
-        for (ClientHandler client : activePlayers){
+        //[numberOfPlayers][numberOfCategories+1]
+        ah = new String[activePlayers.size()][5];// TODO: change magic number 5 and 4
+        int counter = 0;
 
+        for (ClientHandler client : activePlayers){
+            ah[counter] = client.getPromptMenu().getPromptQuestions().getAnswers();
+            counter++;
         }
     }
 
